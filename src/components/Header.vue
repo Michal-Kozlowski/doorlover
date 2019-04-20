@@ -32,10 +32,17 @@ export default {
     selectedLanguage: 'English',
     activeMenuColor: '#7E7E7E',
   }),
+  watch: {
+    selectedLanguage: function(val) {
+      this.$store.dispatch('set_selected_language', val);
+    },
+  },
   created() {
     const browserLanguage = ISO6391.getName(navigator.language.match(/[a-z]+/g)[0]);
-    this.selectedLanguage = browserLanguage;
-    this.languages.push(browserLanguage);
+    this.languages.unshift(browserLanguage);
+    if (this.$store.getters.selectedLanguage) {
+      this.selectedLanguage = this.$store.getters.selectedLanguage;
+    }
   },
   mounted() {
     const caret = document.querySelector('.v-icon.material-icons.theme--light');
@@ -83,6 +90,7 @@ export default {
     &__selection {
       margin: 0;
       color: $header-text;
+      font-size: 14px;
     }
 
     &__selections {
@@ -105,6 +113,7 @@ export default {
       height: 32px;
       color: $header-text;
       padding: 0 8px 0 10px;
+      font-size: 14px;
 
       &--active {
         &::after {

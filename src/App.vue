@@ -17,7 +17,10 @@ export default {
     return {
       //
     }
-  }
+  },
+  created() {
+    this.$store.dispatch('load_state');
+  },
 }
 </script>
 
