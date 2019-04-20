@@ -1,9 +1,9 @@
 <template>
   <div class="header">
     <v-container class="header__container" fluid pa-0>
-      <v-layout align-center="" fill-height row>
-        <v-flex xs3 sm7 md8 xl9>
-          <a href="https://www.applover.pl/"  class="header__logo">
+      <v-layout align-center fill-height row>
+        <v-flex xs3 sm7 md8 xl9 mt-1>
+          <a href="https://www.applover.pl/" class="header__logo">
             <img src="../assets/images/logo.png" alt="Applover logo">
           </a>
         </v-flex>
@@ -73,7 +73,7 @@ export default {
     &__slot {
       min-height: 32px;
       box-shadow: none;
-      border: 1px solid $header-border;
+      border: 1px solid $border;
       margin: 0;
       padding: 0 5px 0 10px;
     }
@@ -96,7 +96,7 @@ export default {
 .v-menu__content {
   margin-top: 31px;
   box-shadow: none;
-  border: 1px solid $header-border;
+  border: 1px solid $border;
 
   .v-list {
     padding: 0;
