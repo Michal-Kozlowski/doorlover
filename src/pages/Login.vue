@@ -27,7 +27,7 @@
           ></v-text-field>
           <v-checkbox
             class="login__checkbox"
-            v-model="keepLogged"
+            v-model="keepLoggedIn"
             label="Keep me logged in"
           ></v-checkbox>
           <v-btn
@@ -54,9 +54,9 @@ export default {
   },
   data: () => ({
     messageSend: false,
-    email: '',
-    password: '',
-    keepLogged: false,
+    email: 'test@applover.pl',
+    password: 'example123',
+    keepLoggedIn: false,
     dictionary: {
       attributes: {
         email: 'E-mail Address',
@@ -69,10 +69,14 @@ export default {
   methods: {
     onSubmit () {
       this.$validator.validate().then(valid => {
-        if (!valid) {
-          return;
+        if (valid) {
+          const loginData = {
+            email: this.email,
+            password: this.password,
+            keepLoggedIn: this.keepLoggedIn,
+          };
+          this.$store.dispatch('log_in', loginData);
         }
-        this.messageSend = true;
       });
     },
   },

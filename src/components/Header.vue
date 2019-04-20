@@ -32,9 +32,21 @@ export default {
     selectedLanguage: 'English',
     activeMenuColor: '#7E7E7E',
   }),
+  computed: {
+    errorOnLogin() {
+      return this.$store.getters.error;
+    },
+  },
   watch: {
     selectedLanguage: function(val) {
       this.$store.dispatch('set_selected_language', val);
+    },
+    errorOnLogin: function(val) {
+      if (val) {
+        setTimeout(() => {
+          this.$store.dispatch('set_error', false);
+        }, 5000);
+      };
     },
   },
   created() {
