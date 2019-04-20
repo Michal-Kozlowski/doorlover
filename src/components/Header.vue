@@ -19,6 +19,21 @@
           ></v-select>
         </v-flex>
       </v-layout>
+      <v-layout 
+        align-center
+        fill-height
+        class="header__error"
+        :class="{'header__error--visible': errorOnLogin}"
+      >
+        <v-flex>
+          <div class="header__error-message">Invalid email or password</div>
+          <i 
+            class="material-icons header__error-close"
+            @click="closeError()"
+            >
+          close</i>
+        </v-flex >
+      </v-layout>
     </v-container>
   </div>
 </template>
@@ -44,9 +59,14 @@ export default {
     errorOnLogin: function(val) {
       if (val) {
         setTimeout(() => {
-          this.$store.dispatch('set_error', false);
+          this.closeError();
         }, 5000);
       };
+    },
+  },
+  methods: {
+    closeError() {
+      this.$store.dispatch('set_error', false);
     },
   },
   created() {
@@ -69,9 +89,12 @@ export default {
 .header {
   color: $header-text;
   box-shadow: 0 3px 12px $header-shadow;
-  height: 80px;
   display: flex;
   align-items: center; 
+
+  &__container {
+    height: 80px;
+  }
 
   &__logo {
     margin-left: 10%;
@@ -84,6 +107,37 @@ export default {
 
   &__select {
     max-width: 112px;
+  }
+
+  &__error {
+    color: $background;
+    background: $error;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    transition: $transition-time;
+    opacity: 0;
+    display: none;
+    z-index: 10;
+
+    &--visible {
+      display: flex;
+      opacity: 1;
+    }
+  }
+
+  &__error-message {
+    text-align: center;
+  }
+
+  &__error-close {
+    font-size: 20px;
+    color: $background;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    cursor: pointer;
   }
 }
 

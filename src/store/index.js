@@ -12,7 +12,7 @@ export default new Vuex.Store({
     password: null,
     organization: null,
     token: null,
-    error: null,
+    error: false,
   },
   mutations: {
     SET_SELECTED_LANGUAGE(state, data) {
