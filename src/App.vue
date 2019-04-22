@@ -1,21 +1,26 @@
 <template>
   <v-app>
-    <Header/>
-    <router-view/>
+    <div :class="{'blur': overlayStatus}">
+      <Header/>
+      <router-view/>
+    </div>
+    <Overlay v-if="overlayStatus"/>
   </v-app>
 </template>
 
 <script>
 import Header from '@/components/Header.vue';
+import Overlay from '@/components/Overlay.vue';
 
 export default {
   name: 'App',
   components: {
     Header,
+    Overlay,
   },
-  data () {
-    return {
-      //
+  computed: {
+    overlayStatus() {
+      return this.$store.getters.overlayStatus;
     }
   },
   created() {
@@ -30,6 +35,10 @@ export default {
 .application {
   &--wrap {
     background: $background;
+  }
+
+  .blur {
+    filter: blur(5px);
   }
 }
 </style>

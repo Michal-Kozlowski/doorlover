@@ -13,6 +13,7 @@ export default new Vuex.Store({
     organization: null,
     token: null,
     error: false,
+    overlayStatus: false,
   },
   mutations: {
     SET_SELECTED_LANGUAGE(state, data) {
@@ -35,6 +36,9 @@ export default new Vuex.Store({
     },
     SET_ERROR(state, data) {
       state.error = !!data;
+    },
+    SET_OVERLAY_STATUS(state, data) {
+      state.overlayStatus = data;
     },
     LOAD_STATE(state, local) {
       state.selectedLanguage = JSON.parse(local).selectedLanguage;
@@ -66,6 +70,9 @@ export default new Vuex.Store({
     },
     set_error({ commit }, data) {
       commit('SET_ERROR', data);
+    },
+    set_overlay_status({ commit }, data) {
+      commit('SET_OVERLAY_STATUS', data);
     },
     save_state() {
       const stateToSave = {
@@ -118,5 +125,6 @@ export default new Vuex.Store({
     organization: (state) => state.organization,
     token: (state) => state.token,
     error: (state) => state.error,
+    overlayStatus: (state) => state.overlayStatus,
   },
 })

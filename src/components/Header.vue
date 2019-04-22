@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" :class="{'header--dark-shadow': notLoginPage}">
     <v-container class="header__container" fluid pa-0>
       <v-layout align-center fill-height row>
         <v-flex xs3 sm7 md8 xl9 mt-1>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import ISO6391 from 'iso-639-1/build/index'
+import ISO6391 from 'iso-639-1/build/index';
 export default {
   name: 'Header',
   data: () => ({
@@ -51,6 +51,9 @@ export default {
     errorOnLogin() {
       return this.$store.getters.error;
     },
+    notLoginPage() {
+      return this.$route.name !== 'login';
+    }
   },
   watch: {
     selectedLanguage: function(val) {
@@ -61,7 +64,7 @@ export default {
         setTimeout(() => {
           this.closeError();
         }, 5000);
-      };
+      }
     },
   },
   methods: {
@@ -88,9 +91,14 @@ export default {
 
 .header {
   color: $header-text;
-  box-shadow: 0 3px 12px $header-shadow;
   display: flex;
-  align-items: center; 
+  align-items: center;
+  transition: $transition-time;
+  box-shadow: 0 3px 12px $header-shadow;
+
+  &--dark-shadow {
+    box-shadow: 0 3px 12px $header-shadow--dark;
+  }
 
   &__container {
     height: 80px;

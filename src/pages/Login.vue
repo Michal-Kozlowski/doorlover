@@ -34,6 +34,7 @@
             @click="onSubmit"
             class="login__send ma-0 mt-2 right"
             depressed
+            :disabled="overlayStatus"
           >Login</v-btn>
         </form>
       </v-flex>
@@ -63,6 +64,11 @@ export default {
       },
     },
   }),
+  computed: {
+    overlayStatus() {
+      return this.$store.getters.overlayStatus;
+    },
+  },
   mounted () {
     this.$validator.localize('en', this.dictionary);
   },
@@ -76,6 +82,7 @@ export default {
             keepLoggedIn: this.keepLoggedIn,
           };
           this.$store.dispatch('log_in', loginData);
+          this.$store.dispatch('set_overlay_status', true);
         }
       });
     },
@@ -87,7 +94,11 @@ export default {
 @import 'src/assets/styles/styles.scss';
 
 .login {
-  margin-bottom: 30vh;
+  margin-top: 5vh;
+
+  @include media-breakpoint-up(sm) {
+    margin-top: 18vh;
+  }
 
   &__title {
     font-size: 24px;
@@ -103,7 +114,7 @@ export default {
     @include media-breakpoint-up(xsm) {
       padding: 10% 10% 35px;
     }
-  
+
     @include media-breakpoint-up(sm) {
       padding: 10% 20% 35px;
     }
