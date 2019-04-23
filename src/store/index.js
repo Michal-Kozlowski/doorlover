@@ -14,6 +14,15 @@ export default new Vuex.Store({
     token: null,
     error: false,
     overlayStatus: false,
+    activeStep: 1,
+    door: {
+      wings: 1,
+      beams: 4,
+      posts: 2,
+      width: 120,
+      height: 250,
+      color: '#000000',
+    },
   },
   mutations: {
     SET_SELECTED_LANGUAGE(state, data) {
@@ -39,6 +48,27 @@ export default new Vuex.Store({
     },
     SET_OVERLAY_STATUS(state, data) {
       state.overlayStatus = data;
+    },
+    SET_ACTIVE_STEP(state, data) {
+      state.activeStep = data;
+    },
+    SET_WINGS(state, data) {
+      state.door.wings = data;
+    },
+    SET_HEIGHT(state, data) {
+      state.door.height = data;
+    },
+    SET_WIDTH(state, data) {
+      state.door.width = data;
+    },
+    SET_BEAMS(state, data) {
+      state.door.beams = data;
+    },
+    SET_POSTS(state, data) {
+      state.door.posts = data;
+    },
+    SET_COLOR(state, data) {
+      state.door.color = data;
     },
     LOAD_STATE(state, local) {
       state.selectedLanguage = JSON.parse(local).selectedLanguage;
@@ -73,6 +103,27 @@ export default new Vuex.Store({
     },
     set_overlay_status({ commit }, data) {
       commit('SET_OVERLAY_STATUS', data);
+    },
+    set_active_step({ commit }, data) {
+      commit('SET_ACTIVE_STEP', data);
+    },
+    set_wings({ commit }, data) {
+      commit('SET_WINGS', data);
+    },
+    set_width({ commit }, data) {
+      commit('SET_WIDTH', data);
+    },
+    set_height({ commit }, data) {
+      commit('SET_HEIGHT', data);
+    },
+    set_beams({ commit }, data) {
+      commit('SET_BEAMS', data);
+    },
+    set_posts({ commit }, data) {
+      commit('SET_POSTS', data);
+    },
+    set_color({ commit }, data) {
+      commit('SET_COLOR', data);
     },
     save_state() {
       const stateToSave = {
@@ -126,5 +177,12 @@ export default new Vuex.Store({
     token: (state) => state.token,
     error: (state) => state.error,
     overlayStatus: (state) => state.overlayStatus,
+    activeStep: (state) => state.activeStep,
+    wings: (state) => state.door.wings,
+    beams: (state) => state.door.beams,
+    posts: (state) => state.door.posts,
+    width: (state) => state.door.width,
+    height: (state) => state.door.height,
+    color: (state) => state.door.color,
   },
 })

@@ -97,7 +97,7 @@ export default {
   box-shadow: 0 3px 12px $header-shadow;
 
   &--dark-shadow {
-    box-shadow: 0 3px 12px $header-shadow--dark;
+    box-shadow: 0 3px 6px $header-shadow--dark;
   }
 
   &__container {
