@@ -10,8 +10,8 @@
         class="current__circle"
         :class="{'current__circle--active': activeStep === index + 1}"
       ></div>
-      <div class="current__title">Step {{index + 1}}</div>
-      <div class="current__description">{{step.description}}</div>
+      <div class="current__title">{{ $t('step') }} {{index + 1}}</div>
+      <div class="current__description">{{$t(step.description)}}</div>
     </div>
   </div>
 </template>
@@ -21,9 +21,9 @@ export default {
   name: 'Current',
   data: () => ({
     steps: [
-      { description: 'choose door' },
-      { description: 'choose door division' },
-      { description: 'choose color' },
+      { description: 'step1' },
+      { description: 'step2' },
+      { description: 'step3' },
     ]
   }),
   computed: {

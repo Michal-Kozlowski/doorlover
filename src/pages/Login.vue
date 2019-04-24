@@ -9,7 +9,7 @@
             v-model="email"
             v-validate="'required|email'"
             :error-messages="errors.collect('email')"
-            label="Email address"
+            :label="$t('emailAddress')"
             data-vv-name="email"
             solo
             required
@@ -20,7 +20,7 @@
             v-model="password"
             v-validate="'required'"
             :error-messages="errors.collect('password')"
-            label="Password"
+            :label="$t('password')"
             data-vv-name="password"
             solo
             required
@@ -28,7 +28,7 @@
           <v-checkbox
             class="login__checkbox"
             v-model="keepLoggedIn"
-            label="Keep me logged in"
+            :label="$t('keepMeLoggedIn')"
           ></v-checkbox>
           <v-btn
             @click="onSubmit"
@@ -55,8 +55,8 @@ export default {
   },
   data: () => ({
     messageSend: false,
-    email: 'test@applover.pl',
-    password: 'example123',
+    email: '',
+    password: '',
     keepLoggedIn: false,
     dictionary: {
       attributes: {

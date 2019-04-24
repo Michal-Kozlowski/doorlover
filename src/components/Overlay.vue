@@ -1,6 +1,6 @@
 <template>
   <div class="overlay">
-    <div class="overlay__title">Processing...</div>
+    <div class="overlay__title">{{$t('processing')}}...</div>
     <div class="overlay__progress-bar">
       <div class="overlay__bar" :style="`margin-right: ${progressFunction}`"></div>
       <div class="overlay__percentage">{{progressInPercent}}%</div>

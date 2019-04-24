@@ -8,7 +8,7 @@
           </a>
         </v-flex>
         <v-flex class="header__language mt-3" id="language-select" xs9 sm5 md4 xl3>
-          <div class="pr-3 mb-3 pb-1 hidden-sm-and-down">Select language:</div>
+          <div class="pr-3 mb-3 pb-1 hidden-sm-and-down">{{ $t('selectLang') }}:</div>
           <v-select
             :items="languages"
             v-model="selectedLanguage"
@@ -22,7 +22,7 @@
             depressed
             @click="showOrg = !showOrg"
             class="header__button px-1"
-          >My organization</v-btn>
+          >{{ $t('myOrganization') }}</v-btn>
         </v-flex>
       </v-layout>
       <v-layout 
@@ -78,6 +78,7 @@ export default {
   },
   watch: {
     selectedLanguage: function(val) {
+      this.$i18n.locale = val;
       this.$store.dispatch('set_selected_language', val);
     },
     errorOnLogin: function(val) {

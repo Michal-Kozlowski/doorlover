@@ -2,34 +2,34 @@
   <div class="options">
 
     <div class="step-one" v-if="activeStep === 1">
-      <div class="options__header">Door type</div>
+      <div class="options__header">{{ $t('doorType') }}</div>
       <v-radio-group v-model="wings">
-        <v-radio label="Single door" value="1"></v-radio>
-        <v-radio label="Double door" value="2"></v-radio>
+        <v-radio :label="$t('singleDoor')" value="1"></v-radio>
+        <v-radio :label="$t('doubleDoor')" value="2"></v-radio>
       </v-radio-group>
-      <div class="options__header">Door size</div>
+      <div class="options__header">{{ $t('doorSize') }}</div>
       <div class="options__width">
-        <label for="width" class="options__label">Width</label>
+        <label for="width" class="options__label">{{ $t('width') }}</label>
         <input type="number" id="width" v-model="width" class="options__input">
         <span>cm</span>
       </div>
       <div class="options__height">
-        <label for="height" class="options__label">Height</label>
+        <label for="height" class="options__label">{{ $t('height') }}</label>
         <input type="number" id="width" v-model="height" class="options__input">
         <span>cm</span>
       </div>
     </div>
 
     <div class="step-two" v-if="activeStep === 2">
-      <div class="options__header">Door division</div>
+      <div class="options__header">{{ $t('doorDivision') }}</div>
       <div class="options__beams">
-        <label for="beams" class="options__label options__label--wide">Number of beams</label>
+        <label for="beams" class="options__label options__label--wide">{{ $t('numberOfBeams') }}</label>
         <input type="number" min="0" id="beams" v-model="beams" class="options__input options__input--small">
         <button @click="beams++" class="options__button options__button--small">+</button>
         <button @click="beams--" class="options__button options__button--small">-</button>
       </div>
       <div class="options__posts">
-        <label for="posts" class="options__label options__label--wide">Number of posts</label>
+        <label for="posts" class="options__label options__label--wide">{{ $t('numberOfPosts') }}</label>
         <input type="number" min="0" id="posts" v-model="posts" class="options__input options__input--small">
         <button @click="posts++" class="options__button options__button--small">+</button>
         <button @click="posts--" class="options__button options__button--small">-</button>
@@ -37,26 +37,26 @@
     </div>
 
     <div class="step-three" v-if="activeStep === 3">
-      <div class="options__header">Choose color</div>
+      <div class="options__header">{{ $t('chooseDoor') }}</div>
       <v-radio-group v-model="color" class="options__colors">
         <div class="options__color-box">
           <div class="options__color" :style="{background: black}" @click="color = black"></div>
-          <v-radio label="Black" :value="black"></v-radio>
+          <v-radio :label="$t('black')" :value="black"></v-radio>
         </div>
         <div class="options__color-box">
           <div class="options__color" :style="{background: grey}" @click="color = grey"></div>
-          <v-radio label="Gray" :value="grey"></v-radio>
+          <v-radio :label="$t('gray')" :value="grey"></v-radio>
           </div>
         <div class="options__color-box">
           <div class="options__color" :style="{background: white}" @click="color = white"></div>
-          <v-radio label="White" :value="white" ref="white"></v-radio>
+          <v-radio :label="$t('white')" :value="white" ref="white"></v-radio>
         </div>
       </v-radio-group>
     </div>
 
     <div class="options__control-steps">
-      <v-btn depressed @click="backStep" v-if="activeStep !== 1" class="options__button options__back ma-0">Back</v-btn>
-      <v-btn color="info" depressed @click="nextStep" v-if="activeStep !== 3" class="options__button options__next ma-0">Next step</v-btn>
+      <v-btn depressed @click="backStep" v-if="activeStep !== 1" class="options__button options__back ma-0">{{ $t('back') }}</v-btn>
+      <v-btn color="info" depressed @click="nextStep" v-if="activeStep !== 3" class="options__button options__next ma-0">{{ $t('nextStep') }}</v-btn>
     </div>
 
   </div>

@@ -113,7 +113,7 @@ export default {
       if (window.innerWidth > 960) {
         this.scale = 0.8;
       }
-      if (window.innerWidth > 1200) {
+      if (window.innerWidth > 1260) {
         this.scale = 1.2;
       }
     },
