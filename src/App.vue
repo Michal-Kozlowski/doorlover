@@ -21,7 +21,7 @@ export default {
   computed: {
     overlayStatus() {
       return this.$store.getters.overlayStatus;
-    }
+    },
   },
   created() {
     this.$store.dispatch('load_state');

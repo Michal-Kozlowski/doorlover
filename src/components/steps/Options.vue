@@ -20,24 +20,37 @@
       </div>
     </div>
 
-    <div class="step-one" v-if="activeStep === 2">
+    <div class="step-two" v-if="activeStep === 2">
       <div class="options__header">Door division</div>
       <div class="options__beams">
         <label for="beams" class="options__label options__label--wide">Number of beams</label>
-        <input type="number" min="0" id="beams" v-model="beams" class="options__input">
+        <input type="number" min="0" id="beams" v-model="beams" class="options__input options__input--small">
+        <button @click="beams++" class="options__button options__button--small">+</button>
+        <button @click="beams--" class="options__button options__button--small">-</button>
       </div>
       <div class="options__posts">
         <label for="posts" class="options__label options__label--wide">Number of posts</label>
-        <input type="number" min="0" id="posts" v-model="posts" class="options__input">
+        <input type="number" min="0" id="posts" v-model="posts" class="options__input options__input--small">
+        <button @click="posts++" class="options__button options__button--small">+</button>
+        <button @click="posts--" class="options__button options__button--small">-</button>
       </div>
     </div>
 
-    <div class="step-one" v-if="activeStep === 3">
+    <div class="step-three" v-if="activeStep === 3">
       <div class="options__header">Choose color</div>
-      <v-radio-group v-model="color">
-        <v-radio label="Black" value="#000000"></v-radio>
-        <v-radio label="Gray" value="#797474"></v-radio>
-        <v-radio label="White" value="#F4F2F2"></v-radio>
+      <v-radio-group v-model="color" row class="options__colors">
+        <div class="options__color-box">
+          <div class="options__color" :style="{background: black}" @click="color = black"></div>
+          <v-radio label="Black" :value="black"></v-radio>
+        </div>
+        <div class="options__color-box">
+          <div class="options__color" :style="{background: grey}" @click="color = grey"></div>
+          <v-radio label="Gray" :value="grey"></v-radio>
+          </div>
+        <div class="options__color-box">
+          <div class="options__color" :style="{background: white}" @click="color = white"></div>
+          <v-radio label="White" :value="white" ref="white"></v-radio>
+        </div>
       </v-radio-group>
     </div>
 
@@ -59,6 +72,9 @@ export default {
     beams: null,
     posts: null,
     color: null,
+    black: '#000000',
+    grey: '#797474',
+    white: '#F4F2F2',
   }),
   computed: {
     activeStep() {
@@ -141,10 +157,25 @@ export default {
     border: 1px solid $options-border;
     margin-right: 6px;
     padding-left: 5px;
+
+    &--small {
+      text-align: center;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      margin: 0 2px;
+    }
   }
 
   &__button {
     width: 45%;
+
+    &--small {
+      background: $current-inactive;
+      width: 24px;
+      height: 24px;
+      margin: 0 2px;
+    }
   }
 
   &__back {
@@ -159,6 +190,14 @@ export default {
   &__control-steps {
     display: flex;
     justify-content: space-between
+  }
+
+  &__color {
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    margin: 0 auto 10px;
+    cursor: pointer;
   }
 }
 </style>
