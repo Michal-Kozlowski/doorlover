@@ -74,7 +74,7 @@ export default {
   name: 'Door',
   data: () => ({
     threeDee: false,
-    scale: 1.2,
+    scale: 1.2
   }),
   computed: {
     wings() {
@@ -96,6 +96,24 @@ export default {
       return this.$store.getters.color;
     },
   },
+  methods: {
+    setScale() {
+      this.scale = 0.4;
+      if (window.innerWidth > 600) {
+        this.scale = 0.6;
+      }
+      if (window.innerWidth > 960) {
+        this.scale = 0.8;
+      }
+      if (window.innerWidth > 1200) {
+        this.scale = 1.2;
+      }
+    },
+  },
+  mounted() {
+    this.setScale();
+    window.addEventListener('resize', this.setScale);
+  },
 }
 </script>
 
@@ -103,9 +121,21 @@ export default {
 @import 'src/assets/styles/styles.scss';
 
 .door {
-  width: 590px;
-  border: 1px solid $step-border;
+  width: 130px;
   position: relative;
+
+  @include media-breakpoint-up(sm) {
+    border: 1px solid $step-border;
+    width: 300px;
+  }
+
+  @include media-breakpoint-up(md) {
+    width: 500px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    width: 590px;
+  }
 
   &__dimentions {
     display: flex;
@@ -176,9 +206,13 @@ export default {
     align-items: center;
 
     &--height {
-      left: -40px;
+      left: -25px;
       position: absolute;
       top: 48%;
+
+      @include media-breakpoint-up(sm) {
+        left: -40px;
+      }
     }
 
     &--width {

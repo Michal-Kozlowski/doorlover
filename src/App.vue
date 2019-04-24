@@ -28,13 +28,11 @@ export default {
     this.$store.dispatch('load_state')
       .then(() => {
         if (
-          this.$store.getters.email &&
-          this.$store.getters.password &&
-          this.$store.getters.token &&
-          this.$store.getters.organization
+          !this.$store.getters.email ||
+          !this.$store.getters.password ||
+          !this.$store.getters.token ||
+          !this.$store.getters.organization
         ) {
-          console.log(this.$store.getters.organization);
-        } else {
           router.push({name: 'login'});
         }
       });

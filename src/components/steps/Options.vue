@@ -38,7 +38,7 @@
 
     <div class="step-three" v-if="activeStep === 3">
       <div class="options__header">Choose color</div>
-      <v-radio-group v-model="color" row class="options__colors">
+      <v-radio-group v-model="color" class="options__colors">
         <div class="options__color-box">
           <div class="options__color" :style="{background: black}" @click="color = black"></div>
           <v-radio label="Black" :value="black"></v-radio>
@@ -148,7 +148,11 @@ export default {
     margin-bottom: 10px;
 
     &--wide {
+      width: 100%;
+
+      @include media-breakpoint-up(md) {
       width: 140px;
+      }
     }
   }
 
@@ -181,15 +185,27 @@ export default {
   &__back {
     background: $background !important;
     border: 3px solid $next-step;
+    position: relative;
+    top: 5px;
   }
 
   &__next {
     background: $next-step !important;
+
+    @include media-breakpoint-up(md) {
+      flex-direction: row;
+      bottom: 0;
+    }
   }
 
   &__control-steps {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+    flex-direction: column-reverse;
+
+    @include media-breakpoint-up(md) {
+      flex-direction: row;
+    }
   }
 
   &__color {
@@ -198,6 +214,12 @@ export default {
     height: 35px;
     margin: 0 auto 10px;
     cursor: pointer;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .v-input--radio-group--column .v-input--radio-group__input {
+    flex-direction: row !important;
   }
 }
 </style>
