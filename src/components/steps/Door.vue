@@ -1,7 +1,15 @@
 <template>
   <div class="door">
-    <div class="door__frame">
-      <div class="door__wings">
+    <div
+      class="door__frame"
+      :class="{'door__frame--threeDee': threeDee}"
+      :style="{'background-image': `url(${threeDee ? require('@/assets/images/room.png') : ''}`}"
+    >
+      <div
+        class="door__wings"
+        :class="{'door__wings--threeDee': threeDee}"
+        :style="{'background-image': `url(${threeDee ? require('@/assets/images/park.png') : ''}`}"
+      >
 
         <div class="door__measurement door__measurement--all">
           <div
@@ -125,11 +133,11 @@ export default {
   position: relative;
 
   @include media-breakpoint-up(sm) {
-    border: 1px solid $step-border;
-    width: 300px;
+    width: 350px;
   }
 
   @include media-breakpoint-up(md) {
+    border: 1px solid $step-border;
     width: 500px;
   }
 
@@ -166,16 +174,38 @@ export default {
   &__frame {
     display: flex;
     justify-content: center;
+
+    &--threeDee {
+      background-position: center -23px;
+      background-size: cover;
+
+      @include media-breakpoint-up(sm) {
+        background-position: center -10px;
+      }
+
+      @include media-breakpoint-up(md) {
+        background-position: center 3px;
+      }
+
+      @include media-breakpoint-up(lg) {
+        background-size: 140%;
+        background-position: center -27px;
+      }
+    }
   }
 
   &__wings {
     display: flex;
     justify-content: center;
     position: relative;
+    margin: 100px 0;
+
+    &--threeDee {
+      background-size: cover;
+    }
   }
 
   &__wing {
-    margin: 100px 1px 100px 0;
     position: relative;
   }
 
@@ -222,7 +252,7 @@ export default {
 
     &--all {
       position: absolute;
-      top: 60px;
+      top: -40px;
       left: 0;
     }
   }

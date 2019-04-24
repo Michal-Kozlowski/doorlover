@@ -22,7 +22,7 @@ export default {
   data: () => ({
     steps: [
       { description: 'choose door' },
-      { description: 'choose door divistion' },
+      { description: 'choose door division' },
       { description: 'choose color' },
     ]
   }),

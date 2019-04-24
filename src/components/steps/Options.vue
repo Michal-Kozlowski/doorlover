@@ -187,6 +187,10 @@ export default {
     border: 3px solid $next-step;
     position: relative;
     top: 5px;
+
+    @include media-breakpoint-up(md) {
+      top: 0;
+    }
   }
 
   &__next {
@@ -194,7 +198,6 @@ export default {
 
     @include media-breakpoint-up(md) {
       flex-direction: row;
-      bottom: 0;
     }
   }
 
@@ -218,7 +221,7 @@ export default {
 }
 
 @include media-breakpoint-up(md) {
-  .v-input--radio-group--column .v-input--radio-group__input {
+  .step-three .v-input--radio-group--column .v-input--radio-group__input {
     flex-direction: row !important;
   }
 }

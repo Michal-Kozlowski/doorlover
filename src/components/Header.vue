@@ -4,7 +4,7 @@
       <v-layout align-center fill-height row>
         <v-flex xs3 sm7 md8 xl9 mt-1>
           <a href="https://www.applover.pl/" class="header__logo">
-            <img src="../assets/images/logo.png" alt="Applover logo">
+            <img src="@/assets/images/logo.png" alt="Applover logo">
           </a>
         </v-flex>
         <v-flex class="header__language mt-3" id="language-select" xs9 sm5 md4 xl3>
