@@ -138,8 +138,9 @@ export default {
 
   &__input {
     width: 50px;
-    border: 1px solid $door;
+    border: 1px solid $options-border;
     margin-right: 6px;
+    padding-left: 5px;
   }
 
   &__button {

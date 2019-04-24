@@ -1,34 +1,60 @@
 <template>
   <div class="door">
-    <div class="door__wings">
-      <div
-        class="door__wing"
-        v-for="wing in wings"
-        :key="wing"
-        :style="{width: `${width}px`, height: `${height - 2}px`}"
-      >
-        <div class="door__beams">
+    <div class="door__frame">
+      <div class="door__wings">
+
+        <div class="door__measurement door__measurement--all">
           <div
-            class="door__beam"
-            :style="{background: color, width: `${width - 2}px`}"
-            v-for="beam in beams + 2"
-            :key="`wing${wing}beam${beam}`"
-          >
-          </div>
+            class="door__line door__line--horizontal"
+            :style="{width: `${wings * width}px`}"
+          ></div>
+          <div class="door__numbers door__numbers--horizontal">{{Math.round(wings * width/scale)}}</div>
         </div>
-        <div class="door__posts">
+
+        <div class="door__measurement door__measurement--height">
           <div
-            class="door__post"
-            :style="{background: color, height: `${height - 2}px`, top: `-${height - 2}px`}"
-            v-for="post in posts + 2"
-            :key="`wing${wing}post${post}`"
-          >
+            class="door__line door__line--vertical"
+            :style="{height: `${height}px`}"
+          ></div>
+          <div class="door__numbers door__numbers--vertical">{{Math.round(height/scale)}}</div>
+        </div>
+
+        <div
+          class="door__wing"
+          v-for="wing in wings"
+          :key="wing"
+          :style="{width: `${width}px`, height: `${height - 2}px`}"
+        >
+          <div class="door__measurement door__measurement--width">
+            <div
+              class="door__line door__line--horizontal"
+              :style="{width: `${width}px`}"
+            ></div>
+            <div class="door__numbers door__numbers--horizontal">{{Math.round(width/scale)}}</div>
+          </div>
+
+          <div class="door__beams">
+            <div
+              class="door__beam"
+              :style="{background: color, width: `${width - 2}px`}"
+              v-for="beam in beams + 2"
+              :key="`wing${wing}beam${beam}`"
+            >
+            </div>
+          </div>
+
+          <div class="door__posts">
+            <div
+              class="door__post"
+              :style="{background: color, height: `${height - 2}px`, top: `-${height - 2}px`}"
+              v-for="post in posts + 2"
+              :key="`wing${wing}post${post}`"
+            >
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- <div class="door__measurement door__measurement--height">{{height/1.2}}</div> -->
 
     <div class="door__dimentions" @click="threeDee = !threeDee">
       <div
@@ -48,6 +74,7 @@ export default {
   name: 'Door',
   data: () => ({
     threeDee: false,
+    scale: 1.2,
   }),
   computed: {
     wings() {
@@ -60,17 +87,14 @@ export default {
       return this.$store.getters.posts;
     },
     width() {
-      return this.$store.getters.width * 1.2;
+      return this.$store.getters.width * this.scale;
     },
     height() {
-      return this.$store.getters.height * 1.2;
+      return this.$store.getters.height * this.scale;
     },
     color() {
       return this.$store.getters.color;
     },
-  },
-  created() {
-
   },
 }
 </script>
@@ -109,13 +133,20 @@ export default {
     }
   }
 
-  &__wings {
+  &__frame {
     display: flex;
     justify-content: center;
   }
 
+  &__wings {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
   &__wing {
     margin: 100px 1px 100px 0;
+    position: relative;
   }
 
   &__beams {
@@ -139,34 +170,83 @@ export default {
     position: relative;
   }
 
-  // &__measurement {
-  //   background: $background;
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  //   border: 1px solid $door;
-  //   width: 36px;
-  //   height: 20px;
-  //   position: relative;
+  &__measurement {
+    height: 20px;
+    display: flex;
+    align-items: center;
 
+    &--height {
+      left: -40px;
+      position: absolute;
+      top: 48%;
+    }
 
-  //   &--height {
-  //     position: absolute;
-  //     left: 100px;
-  //     top: 48%;
+    &--width {
+      position: absolute;
+      bottom: -40px;
+    }
 
+    &--all {
+      position: absolute;
+      top: 60px;
+      left: 0;
+    }
+  }
 
-  //     &::before {
-  //       content: '';
-  //       width: 2px;
-  //       height: 300px;
-  //       background: $door;
-  //       border-top: 1px solid $door;
-  //       position: absolute;
-  //       right: 15px;
-  //       z-index: -1;
-  //     }
-  //   }
-  // }
+  &__line {
+    background: $dimention;
+    width: 2px;
+    height: 2px;
+    position: relative;
+
+    &--vertical {
+      &::before,
+      &::after {
+        content: '';
+        background: $dimention;
+        width: 20px;
+        height: 2px;
+        position: absolute;
+        bottom: 0;
+        left: -10px;
+      }
+
+      &::before {
+        top: 0;
+      }
+    }
+
+    &--horizontal {
+      &::before,
+      &::after {
+        content: '';
+        background: $dimention;
+        width: 2px;
+        height: 20px;
+        position: absolute;
+        right: 0;
+        bottom: -10px;
+      }
+
+      &::before {
+        left: 0;
+      }
+    }
+  }
+
+  &__numbers {
+    background: $background;
+    border: 1px solid $door;
+    padding: 0 5px;
+    position: relative;
+
+    &--vertical {
+      right: 18px;
+    }
+
+    &--horizontal {
+      right: 50%;
+    }
+  }
 }
 </style>

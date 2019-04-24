@@ -15,6 +15,8 @@ export default new Vuex.Store({
     error: false,
     overlayStatus: false,
     activeStep: 1,
+
+    // Doors state
     door: {
       wings: 1,
       beams: 4,
@@ -24,6 +26,7 @@ export default new Vuex.Store({
       color: '#000000',
     },
   },
+
   mutations: {
     SET_SELECTED_LANGUAGE(state, data) {
       state.selectedLanguage = data;
@@ -52,6 +55,16 @@ export default new Vuex.Store({
     SET_ACTIVE_STEP(state, data) {
       state.activeStep = data;
     },
+    LOAD_STATE(state, local) {
+      state.selectedLanguage = JSON.parse(local).selectedLanguage;
+      state.keepLoggedIn = JSON.parse(local).keepLoggedIn;
+      state.email = JSON.parse(local).email;
+      state.password = JSON.parse(local).password;
+      state.organization = JSON.parse(local).organization;
+      state.token = JSON.parse(local).token;
+    },
+
+    // Doors mutations
     SET_WINGS(state, data) {
       state.door.wings = data;
     },
@@ -70,15 +83,8 @@ export default new Vuex.Store({
     SET_COLOR(state, data) {
       state.door.color = data;
     },
-    LOAD_STATE(state, local) {
-      state.selectedLanguage = JSON.parse(local).selectedLanguage;
-      state.keepLoggedIn = JSON.parse(local).keepLoggedIn;
-      state.email = JSON.parse(local).email;
-      state.password = JSON.parse(local).password;
-      state.organization = JSON.parse(local).organization;
-      state.token = JSON.parse(local).token;
-    },
   },
+
   actions: {
     set_selected_language({ commit }, data) {
       commit('SET_SELECTED_LANGUAGE', data);
@@ -106,24 +112,6 @@ export default new Vuex.Store({
     },
     set_active_step({ commit }, data) {
       commit('SET_ACTIVE_STEP', data);
-    },
-    set_wings({ commit }, data) {
-      commit('SET_WINGS', data);
-    },
-    set_width({ commit }, data) {
-      commit('SET_WIDTH', data);
-    },
-    set_height({ commit }, data) {
-      commit('SET_HEIGHT', data);
-    },
-    set_beams({ commit }, data) {
-      commit('SET_BEAMS', data);
-    },
-    set_posts({ commit }, data) {
-      commit('SET_POSTS', data);
-    },
-    set_color({ commit }, data) {
-      commit('SET_COLOR', data);
     },
     save_state() {
       const stateToSave = {
@@ -166,8 +154,29 @@ export default new Vuex.Store({
       }).catch((error) => {
         commit('SET_ERROR', error);
       });
-    }
+    },
+
+    // Doors actions
+    set_wings({ commit }, data) {
+      commit('SET_WINGS', data);
+    },
+    set_width({ commit }, data) {
+      commit('SET_WIDTH', data);
+    },
+    set_height({ commit }, data) {
+      commit('SET_HEIGHT', data);
+    },
+    set_beams({ commit }, data) {
+      commit('SET_BEAMS', data);
+    },
+    set_posts({ commit }, data) {
+      commit('SET_POSTS', data);
+    },
+    set_color({ commit }, data) {
+      commit('SET_COLOR', data);
+    },
   },
+
   getters: {
     selectedLanguage: (state) => state.selectedLanguage,
     keepLoggedIn: (state) => state.keepLoggedIn,
@@ -178,6 +187,8 @@ export default new Vuex.Store({
     error: (state) => state.error,
     overlayStatus: (state) => state.overlayStatus,
     activeStep: (state) => state.activeStep,
+
+    // Doors getters
     wings: (state) => state.door.wings,
     beams: (state) => state.door.beams,
     posts: (state) => state.door.posts,
