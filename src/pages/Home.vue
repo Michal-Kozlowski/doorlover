@@ -27,9 +27,12 @@ export default {
 @import 'src/assets/styles/styles.scss';
 
 .home {
+  height: 100%;
+
   &__step {
     display: flex;
     justify-content: center;
+    margin-top: 8vh;
   }
 }
 

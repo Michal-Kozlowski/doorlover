@@ -8,7 +8,7 @@
           </a>
         </v-flex>
         <v-flex class="header__language mt-3" id="language-select" xs9 sm5 md4 xl3>
-          <div class="pr-3 mb-3 pb-1">Select language:</div>
+          <div class="pr-3 mb-3 pb-1 hidden-sm-and-down">Select language:</div>
           <v-select
             :items="languages"
             v-model="selectedLanguage"
@@ -17,6 +17,12 @@
             :color="activeMenuColor"
             class="header__select"
           ></v-select>
+          <v-btn
+            color="#77779D"
+            depressed
+            @click="showOrg = !showOrg"
+            class="header__button px-1"
+          >My organization</v-btn>
         </v-flex>
       </v-layout>
       <v-layout 
@@ -35,25 +41,40 @@
         </v-flex >
       </v-layout>
     </v-container>
+    <div v-if="showOrg" class="header__organization">
+      <p>organization</p>
+      <p>name: {{organization.name}}</p>
+      <p>email: {{organization.email}}</p>
+      <p>phone_number: {{organization.phone_number}}</p>
+      <p>address_line_1: {{organization.address_line_1}}</p>
+      <p>address_line_2: {{organization.address_line_2}}</p>
+      <p>city: {{organization.city}}</p>
+      <p>postal_code: {{organization.postal_code}}</p>
+    </div>
   </div>
 </template>
 
 <script>
 import ISO6391 from 'iso-639-1/build/index';
+
 export default {
   name: 'Header',
   data: () => ({
     languages: ['English'],
     selectedLanguage: 'English',
     activeMenuColor: '#7E7E7E',
+    showOrg: false,
   }),
   computed: {
     errorOnLogin() {
       return this.$store.getters.error;
     },
+    organization() {
+      return this.$store.getters.organization;
+    },
     notLoginPage() {
       return this.$route.name !== 'login';
-    }
+    },
   },
   watch: {
     selectedLanguage: function(val) {
@@ -117,6 +138,14 @@ export default {
     max-width: 112px;
   }
 
+  &__button {
+    margin-bottom: 26px;
+    height: 32px;
+    text-transform: capitalize;
+    font-weight: 400;
+    color: $background !important;
+  }
+
   &__error {
     color: $background;
     background: $error;
@@ -146,6 +175,38 @@ export default {
     right: 30px;
     top: 30px;
     cursor: pointer;
+  }
+
+  &__organization {
+    background: $background;
+    padding: 30px 40px 15px 40px;
+    box-shadow: 0 3px 6px $header-shadow--dark;
+    position: absolute;
+    top: 90px;
+    right: 20px;
+    line-height: 4px;
+    z-index: 30;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: -20px;
+      right: 30vw;
+      width: 0; 
+      height: 0; 
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 20px solid $background;
+      filter: drop-shadow(0 -3px 2px rgba($header-shadow--dark, 0.1));
+    }
+
+    @include media-breakpoint-up(sm) {
+      right: 120px;
+
+      &::after {
+        right: 40px;
+      }
+    }
   }
 }
 

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import router from '@/router';
 
 Vue.use(Vuex)
 
@@ -131,29 +132,33 @@ export default new Vuex.Store({
       }
     },
     log_in({commit}, loginData) {
-      axios({
-        url: 'https://bench-api.applover.pl/api/v1/session',
-        method: 'post',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        data: {
-          'email': loginData.email,
-          'password': loginData.password,
-        },
-      }).then((res) => {
-        commit('SET_EMAIL', loginData.email);
-        commit('SET_PASSWORD', loginData.password);
-        commit('SET_KEEP_LOGGED_IN', loginData.keepLoggedIn);
-        commit('SET_TOKEN', res.data.token);
-        commit('SET_ORGANIZATION', res.data.organization);
-        if (loginData.keepLoggedIn) {
-          this.dispatch('save_state');
-        }
-      }).catch((error) => {
-        commit('SET_ERROR', error);
-      });
+      setTimeout(() => {
+        axios({
+          url: 'https://bench-api.applover.pl/api/v1/session',
+          method: 'post',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          data: {
+            'email': loginData.email ? loginData.email : this.state.email,
+            'password': loginData.password ? loginData.password : this.state.password,
+          },
+        }).then((res) => {
+          commit('SET_EMAIL', loginData.email);
+          commit('SET_PASSWORD', loginData.password);
+          commit('SET_KEEP_LOGGED_IN', loginData.keepLoggedIn);
+          commit('SET_TOKEN', res.data.token);
+          commit('SET_ORGANIZATION', res.data.organization);
+          if (loginData.keepLoggedIn) {
+            this.dispatch('save_state');
+          }
+          router.push({name: 'home'});
+        }).catch((error) => {
+          commit('SET_ERROR', error);
+          router.push({name: 'login'});
+        });
+      }, 1800);
     },
 
     // Doors actions

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <div :class="{'blur': overlayStatus}">
+    <div class="wrap" :class="{'blur': overlayStatus}">
       <Header/>
       <router-view/>
     </div>
@@ -11,6 +11,7 @@
 <script>
 import Header from '@/components/Header.vue';
 import Overlay from '@/components/Overlay.vue';
+import router from '@/router'
 
 export default {
   name: 'App',
@@ -24,13 +25,30 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('load_state');
+    this.$store.dispatch('load_state')
+      .then(() => {
+        if (
+          this.$store.getters.email &&
+          this.$store.getters.password &&
+          this.$store.getters.token &&
+          this.$store.getters.organization
+        ) {
+          console.log(this.$store.getters.organization);
+        } else {
+          router.push({name: 'login'});
+        }
+      });
   },
 }
 </script>
 
 <style lang="scss">
 @import 'src/assets/styles/styles.scss';
+
+body,
+html {
+  min-height: 100%;
+}
 
 .application {
   &--wrap {
